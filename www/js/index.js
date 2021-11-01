@@ -48,7 +48,7 @@ function scan() {
 function download() {
     const success = (images) => {
         images.forEach((path) => {
-            document.getElementById('link').value = path
+            document.getElementById('link').value = path.thumbPath
             console.log(path);
         });
     };
