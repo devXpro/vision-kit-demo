@@ -49,8 +49,10 @@
     <button onclick="scan();">Go!!!</button>
     <label>Local Link<input type="text" id="link"></label>
     <button onclick="setImage()">Change Img</button>
-    <label>Remote Link<input type="text" id="remote-link"></label>
-    <button onclick="download()">Download</button>
+    <label>Remote Link<input type="text" id="remote-link" value="https://ave86sqw5b.cdn.agency/files/2021/03/131893897_3498479606866358_6741120895186259840_o.jpg"></label>
+    <button onclick="download().then();">Download</button>
+    <button onclick="sequentialDownload()">Sequential Download</button>
+    <button onclick="stopSequentialDownload()">Stop Sequential Download</button>
     <img id="img" width="300">
 
 </div>
