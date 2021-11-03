@@ -45,7 +45,16 @@
         <p class="event listening">Connecting to Device</p>
         <p class="event received">Device is Ready</p>
     </div>
-
+    <div>
+        <h4>Recognition:</h4>
+        <input type="radio" id="c1" name="recognition" value="disabled" checked>
+        <label for="c1">Disabled</label>
+        <input type="radio" id="c2" name="recognition" value="fast">
+        <label for="c2">Fast</label>
+        <input type="radio" id="c3" name="recognition" value="accurate">
+        <label for="c3">Accurate</label>
+      </div>
+      <div>
     <button onclick="scan();">Go!!!</button>
     <label>Local Link<input type="text" id="link"></label>
     <button onclick="setImage()">Change Img</button>

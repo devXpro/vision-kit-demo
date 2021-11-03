@@ -44,9 +44,20 @@ function scan() {
         console.log("start failed! Reason:");
         console.error(failure);
     };
-    window.VisionKit.scan(success, failure, {languages: ['en-US'], isFastTextRecognition: true});
+    window.VisionKit.scan(success, failure, getOptions());
 }
 
+const getOptions = () => {
+    let options = {languages: ['en-US'], isFastTextRecognition: false};
+    let val = document.querySelector('input[name="recognition"]:checked').value;
+    if (val == 'disabled') {
+      options.languages = [];
+    }
+    if (val == 'fast'){
+      options.isFastTextRecognition = true;
+    }
+    return options;
+}
 function download() {
     return new Promise(function (resolve, reject) {
       console.log("start download...");
