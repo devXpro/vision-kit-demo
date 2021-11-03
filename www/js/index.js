@@ -37,6 +37,9 @@ function scan() {
         console.log(images);
         images.forEach((image) => {
             document.getElementById('link').value = image.thumbPath
+            if ('text' in image){
+              document.getElementById("text").value = image.text;
+            }
         });
     };
 
