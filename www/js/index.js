@@ -45,7 +45,7 @@ function scan() {
 
     const failure = (error) => {
         console.log("start failed! Reason:");
-        console.error(failure);
+        console.log(error);
     };
     window.VisionKit.scan(success, failure, getOptions());
 }
@@ -76,7 +76,7 @@ function download() {
 
       const failure = (error) => {
         console.log("download failed... Reason:");
-        console.error(failure);
+        console.log(error);
         reject();
       };
 
