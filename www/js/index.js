@@ -50,6 +50,24 @@ function scan() {
     window.VisionKit.scan(success, failure, getOptions());
 }
 
+const getPdf = () => {
+    const success = (images) => {
+        console.log("start complete... Result:");
+        console.log(images);
+        images.forEach((pdf) => {
+            document.getElementById('link').value = pdf
+        });
+    };
+
+    const failure = (error) => {
+        console.log("start failed! Reason:");
+        console.log(error);
+    };
+    window.VisionKit.generatePDFs(success, failure, [
+        document.getElementById("link").value
+    ]);
+}
+
 const getOptions = () => {
     let options = {languages: ['en-US'], isFastTextRecognition: false};
     let val = document.querySelector('input[name="recognition"]:checked').value;
