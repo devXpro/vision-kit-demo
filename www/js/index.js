@@ -36,9 +36,9 @@ function scan() {
         console.log("start complete... Result:");
         console.log(images);
         images.forEach((image) => {
-            document.getElementById('link').value = image.thumbPath
-            if ('text' in image){
-              document.getElementById("text").value = image.text;
+            document.getElementById('link').value = image.thumbPath;
+            if ('text' in image) {
+                document.getElementById("text").value = prepareText(image.text);
             }
         });
     };
@@ -49,6 +49,26 @@ function scan() {
     };
     window.VisionKit.scan(success, failure, getOptions());
 }
+
+const prepareText = (textsObjects) => {
+    let result = [];
+    textsObjects.sort(compare);
+    textsObjects.forEach((textItem)=>{
+        result.push(textItem.text);
+    });
+    return result.reverse();
+}
+
+const compare = (a, b) => {
+    if (a.y < b.y) {
+        return -1;
+    }
+    if (a.y > b.y) {
+        return 1;
+    }
+    return 0;
+}
+
 
 const getPdf = () => {
     const success = (images) => {
@@ -72,42 +92,43 @@ const getOptions = () => {
     let options = {languages: ['en-US'], isFastTextRecognition: false};
     let val = document.querySelector('input[name="recognition"]:checked').value;
     if (val == 'disabled') {
-      options.languages = [];
+        options.languages = [];
     }
-    if (val == 'fast'){
-      options.isFastTextRecognition = true;
+    if (val == 'fast') {
+        options.isFastTextRecognition = true;
     }
     return options;
 }
+
 function download() {
     return new Promise(function (resolve, reject) {
-      console.log("start download...");
-      const success = (images) => {
-        console.log("download complete...");
+        console.log("start download...");
+        const success = (images) => {
+            console.log("download complete...");
 
-        images.forEach((path) => {
-          document.getElementById("link").value = path.thumbPath;
-          console.log(path);
-        });
-        resolve();
-      };
+            images.forEach((path) => {
+                document.getElementById("link").value = path.thumbPath;
+                console.log(path);
+            });
+            resolve();
+        };
 
-      const failure = (error) => {
-        console.log("download failed... Reason:");
-        console.log(error);
-        reject();
-      };
+        const failure = (error) => {
+            console.log("download failed... Reason:");
+            console.log(error);
+            reject();
+        };
 
-      window.VisionKit.download(success, failure, [
-        document.getElementById("remote-link").value
-      ]);
+        window.VisionKit.download(success, failure, [
+            document.getElementById("remote-link").value
+        ]);
     });
 }
 
-const sequentialDownload = async() => {
+const sequentialDownload = async () => {
     window.downloadWorking = true;
-    while(window.downloadWorking){
-      await download();
+    while (window.downloadWorking) {
+        await download();
     }
 }
 
